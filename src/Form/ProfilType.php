@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -40,13 +42,9 @@ class ProfilType extends AbstractType
             ->add('telephone', TelType::class, [
                 'label' => 'Numéro de téléphone',
             ])
-            ->add('campus', ChoiceType::class, [
-                'choices' => [
-                    'Campus 1' => 'campus1',
-                    'Campus 2' => 'campus2',
-                    'Campus 3' => 'campus3',
-                ],
-                'label' => 'Campus',
+            ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'nom'
             ])
             ->add('image', FileType::class, [
                 'label' => 'Photo de profil',
