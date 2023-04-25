@@ -63,9 +63,7 @@ class ProfilType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('reset', ResetType::class, [
-                'label' => 'Annuler',
-            ]);
+            ;
     }
 
 public function configureOptions(OptionsResolver $resolver): void

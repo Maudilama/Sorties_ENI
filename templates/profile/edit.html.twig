@@ -6,14 +6,8 @@
     <h1>Modifier mon profil</h1>
 
     {{ form_start(form) }}
-    {{ form_row(form.firstName) }}
-    {{ form_row(form.lastName) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.password) }}
-    {{ form_row(form.phoneNumber) }}
-    {{ form_row(form.campus) }}
-    {{ form_row(form.image) }}
+    {{ form_widget(form) }}
     <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <button type="reset" class="btn btn-secondary">Annuler</button>
     {{ form_end(form) }}
 {% endblock %}
