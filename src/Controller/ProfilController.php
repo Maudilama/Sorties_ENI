@@ -29,10 +29,10 @@ class ProfilController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             // Vérifiez si le pseudo est unique
-            $username = $form->get('username')->getData();
-            $existingUser = $entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
+            $pseudo = $form->get('pseudo')->getData();
+            $existingUser = $entityManager->getRepository(User::class)->findOneBy(['pseudo' => $pseudo]);
             if ($existingUser && $existingUser->getId() !== $user->getId()) {
-                $form->get('username')->addError(new FormError('Ce pseudo est déjà pris.'));
+                $form->get('pseudo')->addError(new FormError('Ce pseudo est déjà pris.'));
                 return $this->render('profile/edit.html.twig', [
                     'form' => $form->createView(),
                 ]);
