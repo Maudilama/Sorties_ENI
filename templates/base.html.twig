@@ -11,7 +11,7 @@
 </head>
 <body>
 <header>
-    <h1><a href="#"><img src="#" alt="SortieENI"> SortieENI</a> </h1>
+    <a href="{{ path('main_home') }}"><img src="{{ asset('img/logooo.png') }}" alt="SortieENI"> </a>
     {% include('inc/nav.html.twig') %}
 </header>
 
@@ -25,6 +25,7 @@
 {% endfor %}
 
 <main>
+    <h1> </h1>
     {% block body %}{% endblock %}
 </main>
 <footer>

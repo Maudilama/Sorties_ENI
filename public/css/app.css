@@ -1,3 +1,29 @@
+/* styliser le corp de page*/
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Asul', sans-serif;
+    background: linear-gradient(darkslategrey,white);
+}
+/* styliser l'entête */
+header {
+    padding: 1rem 0;
+    text-align: center;
+}
+h1 {
+    text-align: center;
+}
+
+
+/* Styliser les textes */
+
+
+.nav {
+    margin-right: 2rem;
+    text-align: center;
+}
 
 /* Centrez le formulaire de profil */
 form {
@@ -62,7 +88,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #0062cc;
+    background-color: red;
 }
 .form-buttons {
     display: flex;
@@ -72,4 +98,8 @@ button[type="submit"]:hover {
 
 .form-buttons button {
     margin-left: 10px;
+}
+footer {
+    padding: 2rem 0;
+    text-align: center;
 }
