@@ -1,10 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div>
+    {% if app.user %}
+    <h1>Hello {{ app.user.pseudo }}</h1>
+    {% endif %}
+    Bientôt la liste des sorties !
 
+</div>
 {% endblock %}
 
 {% block title %}
-
+{{ parent() }} | Home
 {% endblock %}
 
