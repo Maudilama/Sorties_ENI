@@ -5,6 +5,7 @@
 namespace App\Controller;
 
 use App\Form\ProfilType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ use App\Entity\User;
 class ProfilController extends AbstractController
 {
     #[Route('/profile', name: 'profile_edit')]
-    public function edit(Request $request): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager): Response
     {
         // Récupérez les informations de profil de l'utilisateur actuel
         $user = $this->getUser();
@@ -26,18 +27,19 @@ class ProfilController extends AbstractController
         // Traitez la soumission du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
 
-            // Vérifiez si le pseudo est unique
-            $pseudo = $form->get('pseudo')->getData();
-            $existingUser = $entityManager->getRepository(User::class)->findOneBy(['pseudo' => $pseudo]);
-            if ($existingUser && $existingUser->getId() !== $user->getId()) {
-                $form->get('pseudo')->addError(new FormError('Ce pseudo est déjà pris.'));
-                return $this->render('profile/edit.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-
+            /* // Vérifiez si le pseudo est unique
+             $pseudo = $form->get('pseudo')->getData();
+             $existingUser = $entityManager->getRepository(User::class)->findOneBy(['pseudo' => $pseudo]);
+             if ($existingUser && $existingUser->getId() !== $user->getId()) {
+                 $form->get('pseudo')->addError(new FormError('Ce pseudo est déjà pris.'));
+                 return $this->render('profile/edit.html.twig', [
+                     'form' => $form->createView(),
+                 ]);
+             }
+ */
             // Mettez à jour les informations de profil de l'utilisateur
             $user = $form->getData();
             $entityManager->flush();
