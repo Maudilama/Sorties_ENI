@@ -35,10 +35,10 @@ class Sortie
     private ?string $infosSortie = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
-    private ?lieu $lieu = null;
+    private ?Lieu $lieu = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
-    private ?etat $etat = null;
+    private ?Etat $etat = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     private ?Campus $campus = null;
@@ -143,12 +143,12 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?etat
+    public function getEtat(): ?Etat
     {
         return $this->etat;
     }
 
-    public function setEtat(?etat $etat): self
+    public function setEtat(?Etat $etat): self
     {
         $this->etat = $etat;
 
