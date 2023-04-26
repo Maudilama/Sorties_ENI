@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ProfilType extends AbstractType
 {
@@ -35,12 +37,29 @@ class ProfilType extends AbstractType
                 'label' => 'Email',
             ])
             ->add('password', RepeatedType::class, [
+                'mapped' => false,
+                'attr' => ['autocomplete' => 'new-password'],
+               /* 'constraints' => [
+                    new NotBlank([
+                        'message' => 'Le mot de passe ne peut pas être vide',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Le mot de passe doit avoir au moins {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],*/
                 'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => false,
                 'first_options' => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Répétez le mot de passe'],
             ])
             ->add('telephone', TelType::class, [
                 'label' => 'Numéro de téléphone',
+                'required' => false
             ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
