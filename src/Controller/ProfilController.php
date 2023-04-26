@@ -43,7 +43,7 @@ class ProfilController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            /* // Vérifiez si le pseudo est unique
+           /*  // Vérifiez si le pseudo est unique
              $pseudo = $form->get('pseudo')->getData();
              $existingUser = $entityManager->getRepository(User::class)->findOneBy(['pseudo' => $pseudo]);
              if ($existingUser && $existingUser->getId() !== $user->getId()) {
@@ -52,7 +52,7 @@ class ProfilController extends AbstractController
                      'form' => $form->createView(),
                  ]);
              }
- */
+*/
 
             $this->addFlash('success', 'Votre profil a été mis à jour avec succès.');
 
