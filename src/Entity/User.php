@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $sorties;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?campus $campus = null;
+    private ?Campus $campus = null;
 
     #[ORM\Column(length: 50, unique: true)]
     private ?string $pseudo = null;
@@ -201,12 +201,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCampus(): ?campus
+    public function getCampus(): ?Campus
     {
         return $this->campus;
     }
 
-    public function setCampus(?campus $campus): self
+    public function setCampus(?Campus $campus): self
     {
         $this->campus = $campus;
 
