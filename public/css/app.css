@@ -4,25 +4,65 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    font-family: 'Asul', sans-serif;
-    background: linear-gradient(darkslategrey,white);
+    background: linear-gradient(white,darkslategrey);
+    font-family: 'Crimson Text', serif;
 }
 /* styliser l'entête */
 header {
-    padding: 1rem 0;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 180px;
 }
+header img {
+    max-width: 100%;
+    width: 200px;
+    height: auto;
+    float: left;
+}
+/* Styliser les textes */
 h1 {
     text-align: center;
+    padding: 2px;
 }
 
 
-/* Styliser les textes */
 
+/* Styliser les nav */
+nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 
-.nav {
-    margin-right: 2rem;
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     text-align: center;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    background-color: #333;
+    color: #fff;
+}
+/* Styliser le contenu */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 5px;
 }
 
 /* Centrez le formulaire de profil */
@@ -78,7 +118,7 @@ input[type="file"] {
 
 /* Styliser le bouton Enregistrer */
 button[type="submit"] {
-    background-color: #007bff;
+    background-color: darkslategrey;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -88,7 +128,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: red;
+    background-color: darkolivegreen;
 }
 .form-buttons {
     display: flex;
@@ -100,6 +140,6 @@ button[type="submit"]:hover {
     margin-left: 10px;
 }
 footer {
-    padding: 2rem 0;
+    padding: 100px;
     text-align: center;
 }

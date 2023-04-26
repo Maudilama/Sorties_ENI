@@ -10,11 +10,12 @@
     {% block extrastyles %}{% endblock %}
 </head>
 <body>
+
 <header>
-    <a href="{{ path('main_home') }}"><img src="{{ asset('img/logooo.png') }}" alt="SortieENI"> </a>
+    <h1><a href="{{ path('main_home') }}"><img src="{{ asset('img/logoSortie.png') }}" alt="SortieENI"> </a></h1>
     {% include('inc/nav.html.twig') %}
 </header>
-
+    <div class="container">
 {# read and display all flash messages #}
 {% for label, messages in app.flashes %}
     {% for message in messages %}
@@ -33,6 +34,6 @@
         &copy; {{ "now" | date('Y') }} SortieENI !
     </div>
 </footer>
-
+</div>
 </body>
 </html>
