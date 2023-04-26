@@ -1458,12 +1458,12 @@
                 "shasum": ""
             },
             "require": {
-                "laminas/laminas-code": "~3.4.1|^4.0",
+
                 "php": ">=7.1",
                 "symfony/filesystem": "^4.4.17|^5.0|^6.0"
             },
             "conflict": {
-                "laminas/laminas-stdlib": "<3.2.1",
+
                 "zendframework/zend-stdlib": "<3.2.1"
             },
             "replace": {
