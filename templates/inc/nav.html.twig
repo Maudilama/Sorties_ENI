@@ -4,7 +4,9 @@
         {% if app.user %}
             <li><a href="{{ path('profile_edit') }}" title="Mon Profil">Mon profil</a> </li>
         <li><a href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a> </li>
-
+            {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('app_admin') }}" title="Dashboard">Dashboard</a> </li>
+        {% endif %}
         {% else %}
         <li><a href="{{ path('app_login') }}" title="Connexion">Connexion</a> </li>
             <li><a href="{{ path('app_register') }}" title="Inscription">Inscription</a> </li>
