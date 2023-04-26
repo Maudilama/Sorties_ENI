@@ -8,6 +8,8 @@
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <button type="submit" class="btn btn-primary">Enregistrer</button>
-    <button type="reset" class="btn btn-secondary">Annuler</button>
+    <a href="{{ path('main_home') }}" class="btn-cancel">Annuler</a>
     {{ form_end(form) }}
+
+
 {% endblock %}

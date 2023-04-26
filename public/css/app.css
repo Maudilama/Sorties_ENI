@@ -139,6 +139,20 @@ button[type="submit"]:hover {
 .form-buttons button {
     margin-left: 10px;
 }
+.btn-cancel {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: darkslategrey;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn-cancel:hover{
+    background-color: darkolivegreen;
+}
 footer {
     padding: 100px;
     text-align: center;
