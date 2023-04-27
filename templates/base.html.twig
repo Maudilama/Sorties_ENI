@@ -7,10 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}SortieENI!{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+
     {% block extrastyles %}{% endblock %}
 </head>
 <body>
-
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <header>
     <h1><a href="{{ path('main_home') }}"><img src="{{ asset('img/logoSortie.png') }}" alt="SortieENI"> </a></h1>
     {% include('inc/nav.html.twig') %}

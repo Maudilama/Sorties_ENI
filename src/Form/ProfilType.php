@@ -67,7 +67,7 @@ class ProfilType extends AbstractType
                 'choice_label' => 'nom'
             ])
             ->add('image', FileType::class, [
-                'label' => 'Photo de profil',
+                'label' => 'choisir une image',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
