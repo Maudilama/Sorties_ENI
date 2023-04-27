@@ -3,10 +3,60 @@
 {% block body %}
 <div>
     {% if app.user %}
-    <h1>Hello {{ app.user.pseudo }}</h1>
+        <h2>Date du jour : {{ "now" | date("d-m-Y") }}</h2>
+    <h2>Participant: {{ app.user.pseudo }}</h2>
     {% endif %}
-    Bientôt la liste des sorties !
-
+    //TODO: Ajout filtre
+    <section class="sorties-list">
+        {% if sorties %}
+        <table>
+            <tr>
+                <th>Nom de la sortie</th>
+                <th>Date de la sortie</th>
+                <th>Clôture</th>
+                <th>inscrits/places</th>
+                <th>Etat</th>
+                <th>Inscrit</th>
+                <th>Organisateur</th>
+                <th>Actions</th>
+            </tr>
+        {% for sortie in sorties %}
+            {% if is_granted('afficher', sortie) %}
+            <tr>
+                <td>{{ sortie.nom }}</td>
+                <td>{{ sortie.dateHeureDebut | date("d/m/y H:i") }}</td>
+                <td>{{ sortie.dateLimiteInscription |date("d/m/Y") }}</td>
+                <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
+                <td>{{ sortie.etat.libelle }}</td>
+                <td>{% if app.user in sortie.participants %}
+                X
+                {% endif %}</td>
+                <td>{{ sortie.organisateur.pseudo }}</td>
+                <td> Afficher {% if is_granted('inscription', sortie) %}
+                        - S\'inscrire
+                        {% endif %}
+                    {% if is_granted('desistement', sortie) %}
+                    - Se désister
+                    {% endif %}
+                    {% if is_granted('modifier', sortie) %}
+                    - Modifier
+                    {% endif %}
+                    {% if is_granted('annuler', sortie) %}
+                    - Annuler
+                    {% endif %}
+                    </td>
+            </tr>
+        {% endif %}
+        {% endfor %}
+            </table>
+        {% else %}
+        <div>Rien à afficher !</div>
+        {% endif %}
+    </section>
+<div id="create-sortie-accueil">
+    // TODO: Rajouter le lien vers la création de sortie, les liens vers profil, afficher, annuler, modifier désister...
+    <button><a href="#">Créer une sortie</a> </button>
+</div>
 </div>
 {% endblock %}
 
