@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -66,7 +67,7 @@ class ProfilType extends AbstractType
                 'choice_label' => 'nom'
             ])
             ->add('image', FileType::class, [
-                'label' => 'Photo de profil',
+                'label' => 'choisir une image',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -79,9 +80,13 @@ class ProfilType extends AbstractType
                         'mimeTypesMessage' => 'Veuillez télécharger une image au format JPEG ou PNG',
                     ]),
                 ],
-            ])
-            ;
+            ]);
+
+
+
+
     }
+
 
 public function configureOptions(OptionsResolver $resolver): void
 {
