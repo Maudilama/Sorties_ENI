@@ -16,27 +16,27 @@
                     </tr>
                     <tr>
                         <th>Prénom :</th>
-                        <td{% if user != app.user %} class="text-muted"{% endif %}>{{ prenom }}</td>
+                        <td>{{ prenom }}</td>
                     </tr>
                     <tr>
                         <th>Nom :</th>
-                        <td{% if user != app.user %} class="text-muted"{% endif %}>{{ nom }}</td>
+                        <td>{{ nom }}</td>
                     </tr>
                     <tr>
                         <th>Téléphone :</th>
-                        <td{% if user != app.user %} class="text-muted"{% endif %}>{{ telephone }}</td>
+                        <td>{{ telephone }}</td>
                     </tr>
                     <tr>
                         <th>Email :</th>
-                        <td{% if user != app.user %} class="text-muted"{% endif %}>{{ email }}</td>
+                        <td>{{ email }}</td>
                     </tr>
                     <tr>
                         <th>Campus :</th>
-                        <td{% if user != app.user %} class="text-muted"{% endif %}>{{ campus }}</td>
+                        <td>{{ campus }}</td>
                     </tr>
-                    <a href="{{ path('main_home') }}" class="btn-cancel">Retour</a>
                 </table>
+                <a href="{{ path('main_home') }}" class="btn-cancel">Retour</a>
             </div>
         </div>
     </div>
-{% endblock %
+{% endblock %}

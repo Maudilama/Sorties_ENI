@@ -66,19 +66,10 @@ class ProfilController extends AbstractController
     }
 
 
-#[Route('/profile/{id}', name: 'profile_show', methods: ['GET'])]
+#[Route('//profile/{id}', name: 'profile_show', methods: ['GET'])]
     public function show(User $user): Response
 {
-    // Vérifier si l'utilisateur courant est différent de l'utilisateur dont on affiche le profil
-    if ($user !== $this->getUser()) {
-        // Rendre les champs non modifiables si l'utilisateur n'est pas lui-même
-        $pseudo = '********';
-        $prenom = '*******';
-        $nom = '*******';
-        $telephone = '********';
-        $email = '********';
-        $campus = '********';
-    } else {
+
         // Récupérer les champs de l'utilisateur pour les afficher
         $pseudo = $user->getPseudo();
         $prenom = $user->getPrenom();
@@ -86,7 +77,7 @@ class ProfilController extends AbstractController
         $telephone = $user->getTelephone();
         $email = $user->getEmail();
         $campus = $user->getCampus()->getNom();
-    }
+
 
     return $this->render('profile/show.html.twig', [
 
