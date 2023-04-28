@@ -22,12 +22,12 @@ use function Symfony\Component\String\s;
 
 class AppFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $hasher;
-    private CampusRepository $campusRepository;
-    private VilleRepository $villeRepository;
-    private UserRepository $userRepository;
-    private LieuRepository $lieuRepository;
-    private EtatRepository $etatRepository;
+    private $hasher;
+    private $campusRepository;
+    private $villeRepository;
+    private $userRepository;
+    private $lieuRepository;
+    private $etatRepository;
 
     public function __construct(UserPasswordHasherInterface $hasher,
                                 CampusRepository $campusRepository,
@@ -70,6 +70,7 @@ class AppFixtures extends Fixture
         $ville4->setNom('Quimper');
         $ville4->setCodePostal('29000');
         $manager->persist($ville4);
+        $manager->flush();
 
         //--------Lieu----------
         //Génère lieu aléatoire
@@ -82,6 +83,7 @@ class AppFixtures extends Fixture
             $lieu->setLongitude($faker->longitude);
             $lieu->setVille($faker->randomElement($ville));
             $manager->persist($lieu);
+            $manager->flush();
         }
 
                 //--------Etat----------
@@ -90,6 +92,7 @@ class AppFixtures extends Fixture
                     $etat = new Etat();
                     $etat->setLibelle($libelle);
                     $manager->persist($etat);
+                    $manager->flush();
                 }
 
                         //--------Campus----------
@@ -98,6 +101,7 @@ class AppFixtures extends Fixture
                             $campus = new Campus();
                             $campus->setNom($campusName);
                             $manager->persist($campus);
+                            $manager->flush();
                         }
 
                                //--------User----------
@@ -135,10 +139,10 @@ class AppFixtures extends Fixture
 
 
                                $admin = new User();
-                               $admin->setEmail('admin@test.com');
+                               $admin->setEmail('admin@admin.com');
                                $admin->setRoles(['ROLE_ADMIN']);
 
-                               $password3 = $this->hasher->hashPassword($admin, 'pass_1234');
+                               $password3 = $this->hasher->hashPassword($admin, 'admin123');
                                $admin->setPassword($password3);
 
                                $admin->setNom('Admin');
@@ -148,6 +152,7 @@ class AppFixtures extends Fixture
                                $admin->setCampus($faker->randomElement($campus));
                                $admin->setPseudo('Admin');
                                $manager->persist($admin);
+
 
                                //générer User aléatoire
                                $campus = $this->campusRepository->findAll();
@@ -163,6 +168,7 @@ class AppFixtures extends Fixture
                                    $user->setActif(true);
                                    $user->setCampus($faker->randomElement($campus));
                                    $manager->persist($user);
+                                   $manager->flush();
                                }
 
 
@@ -170,22 +176,27 @@ class AppFixtures extends Fixture
 
                                        //Génère Sortie Aléatoire
                                        $organisateurS = $this->userRepository->findAll();
+                                       $organisateur = $faker->randomElement($organisateurS);
                                        $lieuS = $this->lieuRepository->findAll();
                                        $etatS = $this->etatRepository->findAll();
-                                       $user = $this->userRepository->findAll();
+                                       //$user = $this->userRepository->findAll();
                                        for ($i = 1; $i<=50; $i++){
                                            $sortie = new Sortie();
-                                           $sortie->setNom($faker->sentence($nbWords =4, $variableNbWords = true));
-                                           $sortie->setDateHeureDebut($faker->dateTimeBetween('+1 days', '+1 month', 'Europe/Paris'));
-                                           $sortie->setDuree($faker->dateTimeBetween($sortie->getDateHeureDebut(), $endDate = '+1 days'));
-                                           $sortie->setDateLimiteInscription($faker->dateTimeBetween('-1 days', $sortie->getDateHeureDebut(), 'Europe/Paris'));
-                                           $sortie->setNbInscriptionsMax($faker->numberBetween($min = 3, $max = 25));
-                                           $sortie->setInfosSortie($faker->paragraph($nbSentences = 5, $variableNbSentences = true));
-                                           $sortie->setOrganisateur($faker->randomElement($organisateurS));
-                                           $sortie->setCampus($sortie->getOrganisateur()->getCampus());
+                                           $dateDebut =new \DateTime();
+                                           $dateDebut->add(new \DateInterval('P10D'));
+                                           $dateFin = new \DateTime();
+                                           $dateFin->add(new \DateInterval('P30D'));
+                                           $heureDebut = new \DateTime();
+                                           $sortie->setNom($faker->sentence(1));
+                                           $sortie->setDateHeureDebut($heureDebut);
+                                           $sortie->setDuree($faker->dateTimeBetween($sortie->getDateHeureDebut(),$heureDebut->add(new \DateInterval('P1D'))));
+                                           $sortie->setDateLimiteInscription($dateFin);
+                                           $sortie->setNbInscriptionsMax($faker->numberBetween(3, 25));
+                                           $sortie->setInfosSortie($faker->paragraph());
+                                           $sortie->setOrganisateur($organisateur);
+                                           $sortie->setCampus($organisateur->getCampus());
                                            $sortie->setLieu($faker->randomElement($lieuS));
                                            $sortie->setEtat($faker->randomElement($etatS));
-                                           $sortie->addParticipant($faker->randomElement($user));
                                            $manager->persist($sortie);
 
                                        }
