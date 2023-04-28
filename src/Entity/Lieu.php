@@ -6,6 +6,7 @@ use App\Repository\LieuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LieuRepository::class)]
 class Lieu
@@ -14,6 +15,10 @@ class Lieu
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+
+
+
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
@@ -31,7 +36,11 @@ class Lieu
     private ?Ville $ville = null;
 
     #[ORM\OneToMany(mappedBy: 'lieu', targetEntity: Sortie::class)]
+    #[Assert\Type(type: Sortie::class)]
+    #[Assert\Valid]
+
     private Collection $sorties;
+
 
     public function __construct()
     {
@@ -105,10 +114,19 @@ class Lieu
 
     /**
      * @return Collection<int, Sortie>
+     *
      */
     public function getSorties(): Collection
     {
         return $this->sorties;
+    }
+
+    /**
+     * @param Collection $sorties
+     */
+    public function setSorties(Collection $sorties): void
+    {
+        $this->sorties = $sorties;
     }
 
     public function addSorty(Sortie $sorty): self
