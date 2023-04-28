@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ user.pseudo }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Profil de {{ user.pseudo }}</h1>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Informations personnelles :</h4>
+                <table class="table">
+                    <tr>
+                        <th>Pseudo :</th>
+                        <td>{{ pseudo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom :</th>
+                        <td{% if user != app.user %} class="text-muted"{% endif %}>{{ prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom :</th>
+                        <td{% if user != app.user %} class="text-muted"{% endif %}>{{ nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Téléphone :</th>
+                        <td{% if user != app.user %} class="text-muted"{% endif %}>{{ telephone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email :</th>
+                        <td{% if user != app.user %} class="text-muted"{% endif %}>{{ email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Campus :</th>
+                        <td{% if user != app.user %} class="text-muted"{% endif %}>{{ campus }}</td>
+                    </tr>
+                    <a href="{{ path('main_home') }}" class="btn-cancel">Retour</a>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %

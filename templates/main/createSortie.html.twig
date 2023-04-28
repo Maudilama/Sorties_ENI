@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}
-    <h2>Créer une Sortie</h2>
+{% block title %}Créer une sortie{% endblock %}
 
-{% endblock %}
+
 
 {% block body %}
 
@@ -26,11 +25,7 @@
         {{ form_row(sortieForm.lieu)}}
     </div>
         <button type="submit" class="btn">Publier la sortie</button>
+    <a href="{{ path('main_home') }}" class="btn-cancel">Annuler</a>
     {{ form_end(sortieForm)}}
-
-
-
-   <button><a href="{{ path('main_home') }}">Annuler</a></button>
-
 {% endblock %}
 
