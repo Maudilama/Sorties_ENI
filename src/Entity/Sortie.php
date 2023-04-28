@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use App\Form\LieuType;
 use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -34,7 +36,11 @@ class Sortie
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $infosSortie = null;
 
+
+
+
     #[ORM\ManyToOne(inversedBy: 'sorties')]
+    #[Assert\NotBlank]
     private ?Lieu $lieu = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
@@ -44,14 +50,24 @@ class Sortie
     private ?Campus $campus = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
+
     private ?User $organisateur = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'sorties')]
     private Collection $participants;
 
+
+
+
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
+    }
+
+    public function getLieu() :?Lieu
+    {
+        return $this->lieu;
     }
 
     public function getId(): ?int
@@ -131,10 +147,7 @@ class Sortie
         return $this;
     }
 
-    public function getLieu(): ?lieu
-    {
-        return $this->lieu;
-    }
+
 
     public function setLieu(?lieu $lieu): self
     {
