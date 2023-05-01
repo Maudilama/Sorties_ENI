@@ -6,7 +6,15 @@
         <h2>Date du jour : {{ "now" | date("d-m-Y") }}</h2>
     <h2>Participant: {{ app.user.pseudo }}</h2>
     {% endif %}
-    //TODO: Ajout filtre
+    <div id="filtre">
+        <h3>Filtrer les sorties</h3>
+        <div>
+            {{ form_start(filterForm) }}
+            {{ form_widget(filterForm) }}
+            <button type="submit">Rechercher</button>
+            {{ form_end(filterForm) }}
+        </div>
+
     <section class="sorties-list">
         {% if sorties %}
         <table>
@@ -61,6 +69,6 @@
 {% endblock %}
 
 {% block title %}
-{{ parent() }} | Home
+{{ parent() }} | Accueil
 {% endblock %}
 
