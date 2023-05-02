@@ -33,6 +33,7 @@ class MainController extends AbstractController
 
 
         $user = $this->getUser();
+        assert($user instanceof User);
 
         $defaultList = $sortieRepository->AllSortiesFromUserCampus($user);
         $filtreList = [];
@@ -56,12 +57,15 @@ class MainController extends AbstractController
         ->add('dateDebut', DateTimeType::class, [
             'html5'=> true,
             'widget'=>'single_text',
-            'required'=>false
+            'required'=>false,
+            'label'=> 'Sortie(s) entre le '
     ])
         ->add('dateFin', DateTimeType::class, [
         'html5'=> true,
         'widget'=>'single_text',
-        'required'=>false
+        'required'=>false,
+            'label'=>'Et le '
+
     ])
             ->add('sortiesOrganises', CheckboxType::class, [
                 'label'=>'Sorties dont je suis l\'organisateur',
