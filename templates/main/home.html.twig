@@ -29,7 +29,6 @@
                 <th>Actions</th>
             </tr>
         {% for sortie in sorties %}
-            {% if is_granted('afficher', sortie) %}
             <tr>
                 <td>{{ sortie.nom }}</td>
                 <td>{{ sortie.dateHeureDebut | date("d/m/y H:i") }}</td>
@@ -40,21 +39,20 @@
                 X
                 {% endif %}</td>
                 <td>{{ sortie.organisateur.pseudo }}</td>
-                <td> Afficher {% if is_granted('inscription', sortie) %}
+                <td> Afficher {% if not app.user in sortie.participants %}
                         - S\'inscrire
                         {% endif %}
-                    {% if is_granted('desistement', sortie) %}
+                    {% if app.user in sortie.participants %}
                     - Se désister
                     {% endif %}
-                    {% if is_granted('modifier', sortie) %}
+                    {% if app.user == sortie.organisateur %}
                     - Modifier
                     {% endif %}
-                    {% if is_granted('annuler', sortie) %}
+                    {% if app.user == sortie.organisateur %}
                     - Annuler
                     {% endif %}
                     </td>
             </tr>
-        {% endif %}
         {% endfor %}
             </table>
         {% else %}

@@ -176,6 +176,7 @@ class AppFixtures extends Fixture
 
                                        //Génère Sortie Aléatoire
                                        $organisateurS = $this->userRepository->findAll();
+                                        $participant = $this->userRepository->findAll();
                                        $lieuS = $this->lieuRepository->findAll();
                                        $etatS = $this->etatRepository->findAll();
                                        //$user = $this->userRepository->findAll();
@@ -191,6 +192,9 @@ class AppFixtures extends Fixture
                                            $sortie->setCampus($sortie->getOrganisateur()->getCampus());
                                            $sortie->setLieu($faker->randomElement($lieuS));
                                            $sortie->setEtat($faker->randomElement($etatS));
+                                           for ($j = 1; $j<= $faker->numberBetween(1, $sortie->getNbInscriptionsMax()); $j++){
+                                           $sortie->addParticipant($faker->randomElement($participant));
+                                           }
                                            $manager->persist($sortie);
 
                                        }

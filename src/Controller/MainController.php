@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,12 +53,12 @@ class MainController extends AbstractController
             'required'=> false,
             'placeholder' =>'Tous les Campus'
             ])
-        ->add('dateDebut', DateType::class, [
+        ->add('dateDebut', DateTimeType::class, [
             'html5'=> true,
             'widget'=>'single_text',
             'required'=>false
     ])
-        ->add('dateFin', DateType::class, [
+        ->add('dateFin', DateTimeType::class, [
         'html5'=> true,
         'widget'=>'single_text',
         'required'=>false
