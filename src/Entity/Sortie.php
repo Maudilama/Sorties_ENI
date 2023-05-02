@@ -22,39 +22,42 @@ class Sortie
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateHeureDebut = null;
+    public ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $duree = null;
+    public ?\DateTimeInterface $duree = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateLimiteInscription = null;
+    public ?\DateTimeInterface $dateLimiteInscription = null;
 
     #[ORM\Column]
-    private ?int $nbInscriptionsMax = null;
+    public ?int $nbInscriptionsMax = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $infosSortie = null;
+    public ?string $infosSortie = null;
 
 
 
 
-    #[ORM\ManyToOne(inversedBy: 'sorties')]
-    #[Assert\NotBlank]
-    private ?Lieu $lieu = null;
+    /**
+     * ORM\ManyToOne(inversedBy: 'sorties', targetEntity: "App\Entity\Lieu",cascade: {"persist"})]
+     *@Assert\NotBlank
+     */
 
-    #[ORM\ManyToOne(inversedBy: 'sorties')]
-    private ?Etat $etat = null;
-
-    #[ORM\ManyToOne(inversedBy: 'sorties')]
-    private ?Campus $campus = null;
+    public ?Lieu $lieu = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
+    public ?Etat $etat = null;
 
-    private ?User $organisateur = null;
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    public ?Campus $campus = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+
+    public ?User $organisateur = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'sorties')]
-    private Collection $participants;
+    public Collection $participants;
 
 
 

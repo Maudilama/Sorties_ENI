@@ -17,29 +17,32 @@ class Lieu
     private ?int $id = null;
 
 
-
-
+    #[ORM\Column(length: 255)]
+    public ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $rue = null;
+    public ?string $rue = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $latitude = null;
+    public ?float $latitude = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $longitude = null;
+    public ?float $longitude = null;
 
     #[ORM\ManyToOne(inversedBy: 'lieux')]
-    private ?Ville $ville = null;
+    public ?Ville $ville = null;
 
     #[ORM\OneToMany(mappedBy: 'lieu', targetEntity: Sortie::class)]
     #[Assert\Type(type: Sortie::class)]
     #[Assert\Valid]
 
-    private Collection $sorties;
+
+    public Collection $sorties;
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
 
 
     public function __construct()
@@ -51,6 +54,8 @@ class Lieu
     {
         return $this->id;
     }
+
+
 
     public function getNom(): ?string
     {
@@ -150,4 +155,6 @@ class Lieu
 
         return $this;
     }
+
+
 }

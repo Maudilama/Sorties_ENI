@@ -25,12 +25,18 @@
         {{ form_row(sortieForm.campus)}}
         {{ form_row(sortieForm.lieu)}}
     </div>
-        <button type="submit" class="btn">Publier la sortie</button>
+
+    <div class="form-buttons">
+    {{ form_row(sortieForm.save) }}
+        <a href="{{ path('main_home') }}" class="btn-cancel">Annuler</a>
+    {{ form_row(sortieForm.publish) }}
+
     {{ form_end(sortieForm)}}
+    </div>
 
 
 
-   <button><a href="{{ path('main_home') }}">Annuler</a></button>
+
 
 {% endblock %}
 
