@@ -64,8 +64,33 @@ class ProfilController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    }
 
+
+#[Route('//profile/{id}', name: 'profile_show', methods: ['GET'])]
+    public function show(User $user): Response
+{
+
+        // Récupérer les champs de l'utilisateur pour les afficher
+        $pseudo = $user->getPseudo();
+        $prenom = $user->getPrenom();
+        $nom = $user->getNom();
+        $telephone = $user->getTelephone();
+        $email = $user->getEmail();
+        $campus = $user->getCampus()->getNom();
+
+
+    return $this->render('profile/show.html.twig', [
+
+        'user' => $user,
+        'pseudo' => $pseudo,
+        'prenom' => $prenom,
+        'nom' => $nom,
+        'telephone' => $telephone,
+        'email' => $email,
+        'campus' => $campus,
+    ]);
+}
+}
 
 
 
