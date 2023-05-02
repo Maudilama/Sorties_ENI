@@ -1,0 +1,46 @@
+/* Style pour les champs de formulaire de filtre */
+form input[type=text], select {
+    padding: 8px;
+    width: 150px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f2f2f2;
+    margin-right: 10px;
+}
+
+/* Style pour le bouton de recherche */
+form button[type=submit] {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* Style pour le tableau de sortie */
+table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #008CBA;
+    color: white;
+}

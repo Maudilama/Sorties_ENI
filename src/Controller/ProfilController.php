@@ -20,28 +20,32 @@ class ProfilController extends AbstractController
     #[Route('/profile', name: 'profile_edit')]
     public function edit(Request                     $request,
                          EntityManagerInterface      $entityManager,
-                         UserPasswordHasherInterface $passwordHasher,
-                         UserRepository              $userRepository): Response
-    {
-        // Récupérez les informations de profil de l'utilisateur actuel
-        $user = $this->getUser();
+                         UserPasswordHasherInterface $userPasswordHasher,)
 
 
-        // Créez le formulaire de profil
-        $form = $this->createForm(ProfilType::class, $user);
-        $user = $form->getData();
+{
+    // Récupérez les informations de profil de l'utilisateur actuel
+    $user = $this->getUser();
 
-        // Traitez la soumission du formulaire
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+    // Créez le formulaire de profil
+    $form = $this->createForm(ProfilType::class, $user);
 
-            $plaintextPassword = $user->getPassword();
-            $hashedPassword = $passwordHasher->hashPassword($user, $plaintextPassword);
-            $user->setPassword($hashedPassword);
+    // Traitez la soumission du formulaire
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        assert($user instanceof User);
 
+        // Récupérez la nouvelle valeur du champ de mot de passe
+        $newPassword = $form->get('password')->getData();
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+        //crypter le mot de passe
+        $newPasswordHashed = $userPasswordHasher->hashPassword($user, $newPassword);
+
+        // Mettre à jour le mot de passe dans la base de données
+        $user->setPassword($newPasswordHashed);
+
+        $entityManager->persist($user);
+        $entityManager->flush();
             /*  // Vérifiez si le pseudo est unique
               $pseudo = $form->get('pseudo')->getData();
               $existingUser = $entityManager->getRepository(User::class)->findOneBy(['pseudo' => $pseudo]);
