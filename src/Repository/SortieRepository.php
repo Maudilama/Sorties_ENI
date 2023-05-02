@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Campus;
 use App\Entity\Sortie;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -63,4 +65,78 @@ class SortieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+        public function SortiesByCampus(Campus $campus)
+        {
+            $queryBuilder = $this->createQueryBuilder('s');
+            $queryBuilder->join('s.etat', 'e')
+                ->addSelect('e');
+            $queryBuilder->leftJoin('s.participants', 'p')
+                ->addSelect('p');
+            $queryBuilder->andWhere('s.campus = :campus');
+            $queryBuilder->setParameter(':campus', $campus->getId());
+            $queryBuilder->orderBy('s.dateHeureDebut', 'ASC');
+            $query = $queryBuilder->getQuery();
+            return $query->getResult();
+        }
+
+        public function FiltreSorties($data, User $userConnecte)
+        {
+            $queryBuilder = $this->createQueryBuilder('s');
+            $queryBuilder->join('s.etat', 'e')
+                ->addSelect('e');
+            $queryBuilder->leftJoin('s.participants', 'p')
+                ->addSelect('p');
+            $queryBuilder->andWhere($queryBuilder->expr()->notIn('e.libelle', ':historic'));
+            $queryBuilder->setParameter(':historic', 'Historisée');
+            if ('campus'){
+                $queryBuilder->andWhere('s.campus = :campus');
+                $queryBuilder->setParameter(':campus', 'campus');
+            }
+            if('nom'){
+                $queryBuilder->andWhere('s.nom LIKE :nameSortie');
+                $queryBuilder->setParameter(':nameSortie', 'nom' );
+            }
+            if('dateDebut'){
+                $queryBuilder->andWhere('s.dateHeureDebut >= :dateFrom');
+                $queryBuilder->setParameter(':dateFrom', 'dateDebut' );
+            }
+            if ('dateFin'){
+                $queryBuilder->andWhere('s.dateHeureDebut <= :dateTo');
+                $queryBuilder->setParameter(':dateTo', 'dateFin');
+            }
+            if('sortiesOrganises'){
+                $queryBuilder->andWhere('s.organisateur = :organisator');
+                $queryBuilder->setParameter(':organisator', $userConnecte);
+            }
+            if('sortiesInscrites'){
+                $queryBuilder->andWhere(':userInscrit member of s.participants');
+                $queryBuilder->setParameter(':userInscrit', $userConnecte);
+            }
+            if ('sortiesNonInscrites'){
+                $queryBuilder->andWhere(':userNonInscrit not member of s.participants');
+                $queryBuilder->setParameter(':userNonInscrit', $userConnecte);
+            }
+            if ('sortiesPassees'){
+                $queryBuilder->andWhere('e.libelle = :etat');
+                $queryBuilder->setParameter(':etat', 'Passée');
+            }
+
+            $queryBuilder->orderBy('s.dateHeureDebut', 'ASC');
+            $query = $queryBuilder->getQuery();
+            return $query->getResult();
+        }
+
+        public function AllSortiesFromUserCampus(User $userConnecte)
+        {
+            $queryBuilder = $this->createQueryBuilder('s');
+            $queryBuilder->join('s.etat', 'e')
+                ->addSelect('e');
+            $queryBuilder->leftJoin('s.participants', 'p')
+                ->addSelect('p');
+            $queryBuilder->andWhere('s.campus = '.$userConnecte->getCampus()->getId());
+            $queryBuilder->orderBy('s.dateHeureDebut', 'ASC');
+            $query = $queryBuilder->getQuery();
+            return $query->getResult();
+        }
 }
