@@ -98,8 +98,8 @@ class SortieRepository extends ServiceEntityRepository
                 $queryBuilder->setParameter(':nameSortie', 'nom' );
             }
             if('dateDebut'){
-                $queryBuilder->andWhere('s.dateHeureDebut >= :dateFrom');
-                $queryBuilder->setParameter(':dateFrom', 'dateDebut' );
+                $queryBuilder->andWhere('s.dateHeureDebut >= :dateForm');
+                $queryBuilder->setParameter(':dateForm', 'dateDebut' );
             }
             if ('dateFin'){
                 $queryBuilder->andWhere('s.dateHeureDebut <= :dateTo');
