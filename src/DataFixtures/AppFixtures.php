@@ -176,25 +176,19 @@ class AppFixtures extends Fixture
 
                                        //Génère Sortie Aléatoire
                                        $organisateurS = $this->userRepository->findAll();
-                                       $organisateur = $faker->randomElement($organisateurS);
                                        $lieuS = $this->lieuRepository->findAll();
                                        $etatS = $this->etatRepository->findAll();
                                        //$user = $this->userRepository->findAll();
                                        for ($i = 1; $i<=50; $i++){
                                            $sortie = new Sortie();
-                                           $dateDebut =new \DateTime();
-                                           $dateDebut->add(new \DateInterval('P10D'));
-                                           $dateFin = new \DateTime();
-                                           $dateFin->add(new \DateInterval('P30D'));
-                                           $heureDebut = new \DateTime();
                                            $sortie->setNom($faker->sentence(1));
-                                           $sortie->setDateHeureDebut($heureDebut);
-                                           $sortie->setDuree($faker->dateTimeBetween($sortie->getDateHeureDebut(),$heureDebut->add(new \DateInterval('P1D'))));
-                                           $sortie->setDateLimiteInscription($dateFin);
+                                           $sortie->setDateLimiteInscription($faker->dateTimeBetween('now', '+1month', 'Europe/Paris'));
+                                           $sortie->setDateHeureDebut($faker->dateTimeBetween($sortie->getDateLimiteInscription(), '+1 month', 'Europe/Paris'));
+                                           $sortie->setDuree($faker->dateTimeBetween($sortie->getDateHeureDebut(),$sortie->getDateHeureDebut()->add(new \DateInterval('P1D'))));
                                            $sortie->setNbInscriptionsMax($faker->numberBetween(3, 25));
                                            $sortie->setInfosSortie($faker->paragraph());
-                                           $sortie->setOrganisateur($organisateur);
-                                           $sortie->setCampus($organisateur->getCampus());
+                                           $sortie->setOrganisateur($faker->randomElement($organisateurS));
+                                           $sortie->setCampus($sortie->getOrganisateur()->getCampus());
                                            $sortie->setLieu($faker->randomElement($lieuS));
                                            $sortie->setEtat($faker->randomElement($etatS));
                                            $manager->persist($sortie);
