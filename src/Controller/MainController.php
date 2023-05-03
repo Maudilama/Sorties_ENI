@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Entity\Sortie;
 use App\Entity\User;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
@@ -95,6 +96,10 @@ class MainController extends AbstractController
             $data = $formFilter->getData();
             $filtreList = $sortieRepository->FiltreSorties($data, $user);
             $formSubit = true;
+            $dateForm = new \DateTime($data['dateForm']->format('Y-m-d H:i:s'));
+            $dateTo = new \DateTime($data['dateTo']->format('Y-m-d H:i:s'));
+
+            $mySortie = $entityManager->getRepository(Sortie::class)->findByDateRange($dateForm,$dateTo);
         }
         //Fin du formulaire
 
