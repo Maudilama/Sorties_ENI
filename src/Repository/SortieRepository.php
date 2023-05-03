@@ -80,7 +80,7 @@ class SortieRepository extends ServiceEntityRepository
             return $query->getResult();
         }
 
-        public function FiltreSorties($data, User $userConnecte)
+        public function filtreSorties($data, User $userConnecte)
         {
             $queryBuilder = $this->createQueryBuilder('s');
             $queryBuilder->join('s.etat', 'e')
@@ -89,35 +89,35 @@ class SortieRepository extends ServiceEntityRepository
                 ->addSelect('p');
             $queryBuilder->andWhere($queryBuilder->expr()->notIn('e.libelle', ':historic'));
             $queryBuilder->setParameter(':historic', 'Historisée');
-            if ('campus'){
+            if ($data['campus']){
                 $queryBuilder->andWhere('s.campus = :campus');
-                $queryBuilder->setParameter(':campus', 'campus');
+                $queryBuilder->setParameter(':campus', $data['campus']);
             }
-            if('nom'){
+            if($data['nom']){
                 $queryBuilder->andWhere('s.nom LIKE :nameSortie');
-                $queryBuilder->setParameter(':nameSortie', 'nom' );
+                $queryBuilder->setParameter(':nameSortie', "%{$data['nom']}%" );
             }
-            if('dateDebut'){
+            if($data['dateDebut']){
                 $queryBuilder->andWhere('s.dateHeureDebut >= :dateForm');
-                $queryBuilder->setParameter(':dateForm', 'dateDebut' );
+                $queryBuilder->setParameter(':dateForm', $data['dateDebut'] );
             }
-            if ('dateFin'){
+            if ($data['dateFin']){
                 $queryBuilder->andWhere('s.dateHeureDebut <= :dateTo');
-                $queryBuilder->setParameter(':dateTo', 'dateFin');
+                $queryBuilder->setParameter(':dateTo', $data['dateFin']);
             }
-            if('sortiesOrganises'){
+            if($data['sortiesOrganises']){
                 $queryBuilder->andWhere('s.organisateur = :organisator');
                 $queryBuilder->setParameter(':organisator', $userConnecte);
             }
-            if('sortiesInscrites'){
+            if($data['sortiesInscrites']){
                 $queryBuilder->andWhere(':userInscrit member of s.participants');
                 $queryBuilder->setParameter(':userInscrit', $userConnecte);
             }
-            if ('sortiesNonInscrites'){
+            if ($data['sortiesNonInscrites']){
                 $queryBuilder->andWhere(':userNonInscrit not member of s.participants');
                 $queryBuilder->setParameter(':userNonInscrit', $userConnecte);
             }
-            if ('sortiesPassees'){
+            if ($data['sortiesPassees']){
                 $queryBuilder->andWhere('e.libelle = :etat');
                 $queryBuilder->setParameter(':etat', 'Passée');
             }

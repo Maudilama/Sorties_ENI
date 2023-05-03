@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Entity\Sortie;
 use App\Entity\User;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
@@ -93,22 +94,12 @@ class MainController extends AbstractController
 
         if ($formFilter->isSubmitted() && $formFilter->isValid()){
             $data = $formFilter->getData();
-            $filtreList = $sortieRepository->FiltreSorties($data, $user);
-            $formSubit = true;
-        }
-        //Fin du formulaire
+            $sortieList = $sortieRepository->filtreSorties($data, $user);
 
-        if ($formSubit && $filtreList && count($filtreList) > 0){
-            $sortieList = $filtreList;
-        } else if ($formSubit && count($filtreList) == 0){
-            $sortieList = null;
-        } else {
+        }else {
             $sortieList = $defaultList;
         }
-        dump($sortieList);
-        dump($defaultList);
-        //$sortie = $sortieRepository->findAll();
-        //dump($sortie);
+
 
         return $this->render('main/home.html.twig', [
             "sorties"=>$sortieList,
