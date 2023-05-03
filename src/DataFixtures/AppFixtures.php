@@ -87,7 +87,7 @@ class AppFixtures extends Fixture
         }
 
                 //--------Etat----------
-                $etats = ['Créée', 'Ouverte', 'Clôturée', 'Activité en cours', 'Passée', 'Annulée'];
+                $etats = ['Créée', 'Ouverte', 'Clôturée', 'Activité en cours', 'Passée', 'Annulée', 'Historisée'];
                 foreach ($etats as $libelle){
                     $etat = new Etat();
                     $etat->setLibelle($libelle);
@@ -183,7 +183,7 @@ class AppFixtures extends Fixture
                                        for ($i = 1; $i<=50; $i++){
                                            $sortie = new Sortie();
                                            $sortie->setNom('Sortie '.$i);
-                                           $sortie->setDateLimiteInscription($faker->dateTimeBetween('now', '+1month', 'Europe/Paris'));
+                                           $sortie->setDateLimiteInscription($faker->dateTimeBetween('-1 month', '+1month', 'Europe/Paris'));
                                            $sortie->setDateHeureDebut($faker->dateTimeBetween($sortie->getDateLimiteInscription(), '+1 month', 'Europe/Paris'));
                                            $sortie->setDuree($faker->dateTimeBetween($sortie->getDateHeureDebut(),$sortie->getDateHeureDebut()->add(new \DateInterval('P1D'))));
                                            $sortie->setNbInscriptionsMax($faker->numberBetween(3, 25));
