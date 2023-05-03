@@ -182,12 +182,12 @@ class AppFixtures extends Fixture
                                        //$user = $this->userRepository->findAll();
                                        for ($i = 1; $i<=50; $i++){
                                            $sortie = new Sortie();
-                                           $sortie->setNom($faker->sentence(1));
+                                           $sortie->setNom('Sortie '.$i);
                                            $sortie->setDateLimiteInscription($faker->dateTimeBetween('now', '+1month', 'Europe/Paris'));
                                            $sortie->setDateHeureDebut($faker->dateTimeBetween($sortie->getDateLimiteInscription(), '+1 month', 'Europe/Paris'));
                                            $sortie->setDuree($faker->dateTimeBetween($sortie->getDateHeureDebut(),$sortie->getDateHeureDebut()->add(new \DateInterval('P1D'))));
                                            $sortie->setNbInscriptionsMax($faker->numberBetween(3, 25));
-                                           $sortie->setInfosSortie($faker->paragraph());
+                                           $sortie->setInfosSortie('La sortie numéro : '.$i);
                                            $sortie->setOrganisateur($faker->randomElement($organisateurS));
                                            $sortie->setCampus($sortie->getOrganisateur()->getCampus());
                                            $sortie->setLieu($faker->randomElement($lieuS));

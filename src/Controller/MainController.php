@@ -94,26 +94,12 @@ class MainController extends AbstractController
 
         if ($formFilter->isSubmitted() && $formFilter->isValid()){
             $data = $formFilter->getData();
-            $filtreList = $sortieRepository->FiltreSorties($data, $user);
-            $formSubit = true;
-            $dateForm = new \DateTime($data['dateForm']->format('Y-m-d H:i:s'));
-            $dateTo = new \DateTime($data['dateTo']->format('Y-m-d H:i:s'));
+            $sortieList = $sortieRepository->filtreSorties($data, $user);
 
-            $mySortie = $entityManager->getRepository(Sortie::class)->findByDateRange($dateForm,$dateTo);
-        }
-        //Fin du formulaire
-
-        if ($formSubit && $filtreList && count($filtreList) > 0){
-            $sortieList = $filtreList;
-        } else if ($formSubit && count($filtreList) == 0){
-            $sortieList = null;
-        } else {
+        }else {
             $sortieList = $defaultList;
         }
-        dump($sortieList);
-        dump($defaultList);
-        //$sortie = $sortieRepository->findAll();
-        //dump($sortie);
+
 
         return $this->render('main/home.html.twig', [
             "sorties"=>$sortieList,

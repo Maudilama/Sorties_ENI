@@ -80,7 +80,7 @@ class SortieRepository extends ServiceEntityRepository
             return $query->getResult();
         }
 
-        public function FiltreSorties($data, User $userConnecte)
+        public function filtreSorties($data, User $userConnecte)
         {
             $queryBuilder = $this->createQueryBuilder('s');
             $queryBuilder->join('s.etat', 'e')
@@ -91,7 +91,7 @@ class SortieRepository extends ServiceEntityRepository
             $queryBuilder->setParameter(':historic', 'Historisée');
             if ($data['campus']){
                 $queryBuilder->andWhere('s.campus = :campus');
-                $queryBuilder->setParameter(':campus', 'campus');
+                $queryBuilder->setParameter(':campus', $data['campus']);
             }
             if($data['nom']){
                 $queryBuilder->andWhere('s.nom LIKE :nameSortie');
@@ -99,11 +99,11 @@ class SortieRepository extends ServiceEntityRepository
             }
             if($data['dateDebut']){
                 $queryBuilder->andWhere('s.dateHeureDebut >= :dateForm');
-                $queryBuilder->setParameter(':dateForm', 'dateDebut' );
+                $queryBuilder->setParameter(':dateForm', $data['dateDebut'] );
             }
             if ($data['dateFin']){
                 $queryBuilder->andWhere('s.dateHeureDebut <= :dateTo');
-                $queryBuilder->setParameter(':dateTo', 'dateFin');
+                $queryBuilder->setParameter(':dateTo', $data['dateFin']);
             }
             if($data['sortiesOrganises']){
                 $queryBuilder->andWhere('s.organisateur = :organisator');
