@@ -7,6 +7,7 @@ use App\Entity\Sortie;
 use App\Entity\User;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -108,6 +109,28 @@ class MainController extends AbstractController
             'filterForm'=>$formFilter->createView()
 
         ]);
+    }
+
+
+    #[Route('/desistement/{id}', name: 'sortie_desistement')]
+    public function desistement(int $id,
+                                EntityManagerInterface $entityManager,
+                                Request $request,
+                                SortieRepository $sortieRepository,
+                                UserRepository $userRepository): Response
+    {
+            $sortie = $sortieRepository->find($id);
+
+            $user = $this->getUser();
+            assert($user instanceof User);
+
+            $sortie->removeParticipant($user);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('succes', 'Vous vous êtes désinscrit!');
+            return $this->redirectToRoute('app_home');
+
     }
 
 

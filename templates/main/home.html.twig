@@ -43,7 +43,7 @@
                         - <a href="#">S\'inscrire</a>
                         {% endif %}
                     {% if app.user in sortie.participants %}
-                    - <a href="#">Se désister</a>
+                    - <a href="{{ path('main_sortie_desistement', {'id' : sortie.id}) }}">Se désister</a>
                     {% endif %}
                     {% if app.user == sortie.organisateur %}
                     - <a href="#">Modifier</a>
