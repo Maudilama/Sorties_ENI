@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700&display=swap');
+
 /* styliser le corp de page*/
 body {
     margin: 0;
@@ -5,7 +7,8 @@ body {
     flex-direction: column;
     min-height: 100vh;
     background: linear-gradient(white,darkslategrey);
-    font-family: 'Crimson Text', serif;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-style: italic;
 }
 /*styliser la photo de profil*/
 .user-photo {
@@ -240,7 +243,20 @@ button[type="submit"]:hover {
 .btn-cancel:hover{
     background-color: darkolivegreen;
 }
-
+.btn.btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: darkslategrey;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn.btn-primary:hover{
+    background-color: darkolivegreen;
+}
 footer {
     padding: 100px;
     text-align: center;
