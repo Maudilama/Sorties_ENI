@@ -6,15 +6,15 @@ namespace App\Controller;
 
 
 
-use App\Entity\Sortie;
+use App\Controller\SortieRepository;
 use App\Form\AnnulerFormType;
 use App\Repository\EtatRepository;
+use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use http\Env\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Controller\SortieRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class AnnulerSortieController extends AbstractController
 
@@ -31,8 +31,32 @@ class AnnulerSortieController extends AbstractController
         $sortie = $sortieRepository->find($id);
         $etat=$etatRepository->EtatByLibelle('Annulée');
 
+        $infosA = $sortie->getInfosSortie();
+        $sortie->setInfosSortie("");
+        $annulerForm = $this->createForm(AnnulerFormType::class, $sortie);
+        $annulerForm->handleRequest($request);
+        $infosB = $sortie->getInfosSortie();
 
-           if($sortie->getEtat()->getLibelle() === 'Ouverte' || $sortie->getEtat()->getLibelle() === 'Clôturée'){
+
+        if ($annulerForm->isSubmitted() && $annulerForm->isValid()) {
+
+            $sortie->setEtat($etat);
+
+            $sortie->setInfosSortie(nl2br("MOTIF D'ANNULATION: $infosB  \n $infosA"));
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+            $this->addFlash('succes', 'Votre sortie a été annulée');
+            return $this->redirectToRoute('main_home');
+
+        }
+        return $this->render('annulerSortie/annulerSortie.html.twig', [
+            'sortie' => $sortie,
+            'annulerForm' => $annulerForm->createView()
+        ]);
+    }
+
+           /*if($sortie->getEtat()->getLibelle() === 'Ouverte' || $sortie->getEtat()->getLibelle() === 'Clôturée'){
 
                $infosSortie = $sortie->getInfosSortie();
 
@@ -62,9 +86,9 @@ class AnnulerSortieController extends AbstractController
                 return $this->render('annulerSortie/annulerSortie.html.twig', [
                     'annulationSortieForm' => $AnnulerSortieForm->createView(),
                     'sortie' => $sortie
-                ]);
+                ]);*/
 
 
-        }
+
 
 }
