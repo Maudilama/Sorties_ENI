@@ -16,7 +16,7 @@ class Etat
     const CLOTUREE = 'Clôturée';
     const OUVERTE = 'Ouverte';
     const PASSEE = 'Passée';
-    const HISTORISEE = 'Historisée';
+    const ARCHIVEE = 'Archivée';
 
 
     #[ORM\Id]

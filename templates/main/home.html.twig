@@ -42,7 +42,7 @@
                 <td> <a href="#"> Afficher</a> {% if not app.user in sortie.participants %}
                         - <a href="#">S\'inscrire</a>
                         {% endif %}
-                    {% if app.user in sortie.participants %}
+                    {% if (app.user in sortie.participants) and (sortie.etat.libelle != 'Passée') %}
                     - <a href="{{ path('main_sortie_desistement', {'id' : sortie.id}) }}">Se désister</a>
                     {% endif %}
                     {% if app.user == sortie.organisateur %}

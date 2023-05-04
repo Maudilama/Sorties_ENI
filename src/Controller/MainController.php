@@ -8,7 +8,7 @@ use App\Entity\User;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
-use App\Service\Historiser;
+use App\Service\Archiver;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,7 +35,7 @@ class MainController extends AbstractController
         }
 
         $sortiesAActualiser = $sortieRepository->findAll();
-        $actualiseEtat = new Historiser();
+        $actualiseEtat = new Archiver();
         $actualiseEtat->actualiseEtatSorties($sortiesAActualiser, $etatRepository, $entityManager);
 
 

@@ -73,8 +73,8 @@ class SortieRepository extends ServiceEntityRepository
                 ->addSelect('e');
             $queryBuilder->leftJoin('s.participants', 'p')
                 ->addSelect('p');
-            $queryBuilder->andWhere($queryBuilder->expr()->notIn('e.libelle', ':historic'));
-            $queryBuilder->setParameter(':historic', 'Historisée');
+            $queryBuilder->andWhere($queryBuilder->expr()->notIn('e.libelle', ':archive'));
+            $queryBuilder->setParameter(':archive', 'Archivée');
             $queryBuilder->andWhere('s.campus = :campus');
             $queryBuilder->setParameter(':campus', $campus->getId());
             $queryBuilder->orderBy('s.dateHeureDebut', 'ASC');
@@ -89,8 +89,8 @@ class SortieRepository extends ServiceEntityRepository
                 ->addSelect('e');
             $queryBuilder->leftJoin('s.participants', 'p')
                 ->addSelect('p');
-            $queryBuilder->andWhere($queryBuilder->expr()->notIn('e.libelle', ':historic'));
-            $queryBuilder->setParameter(':historic', 'Historisée');
+            $queryBuilder->andWhere($queryBuilder->expr()->notIn('e.libelle', ':archive'));
+            $queryBuilder->setParameter(':archive', 'Archivée');
             if ($data['campus']){
                 $queryBuilder->andWhere('s.campus = :campus');
                 $queryBuilder->setParameter(':campus', $data['campus']);
@@ -136,8 +136,8 @@ class SortieRepository extends ServiceEntityRepository
                 ->addSelect('e');
             $queryBuilder->leftJoin('s.participants', 'p')
                 ->addSelect('p');
-            $queryBuilder->andWhere($queryBuilder->expr()->notIn('e.libelle', ':historic'));
-            $queryBuilder->setParameter(':historic', 'Historisée');
+            $queryBuilder->andWhere($queryBuilder->expr()->notIn('e.libelle', ':archive'));
+            $queryBuilder->setParameter(':archive', 'Archivée');
             $queryBuilder->andWhere('s.campus = '.$userConnecte->getCampus()->getId());
             $queryBuilder->orderBy('s.dateHeureDebut', 'ASC');
             $query = $queryBuilder->getQuery();

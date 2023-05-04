@@ -6,7 +6,7 @@ use App\Entity\Etat;
 use App\Repository\EtatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class Historiser
+class Archiver
 {
     public function actualiseEtatSorties(array $sorties,
                                          EtatRepository $etatRepository,
@@ -26,11 +26,11 @@ class Historiser
             $mois = 30 * 24 * 60 * 60;
 
 
-            $etatHistorisee = $etatRepository->EtatByLibelle(Etat::HISTORISEE);
-            if (($currentTimeinSeconds - $dateTermineeInSeconds) > $mois and $sortie->getEtat() != $etatHistorisee) {
-                $sortie->setEtat($etatHistorisee);
+            $etatArchivee = $etatRepository->EtatByLibelle(Etat::ARCHIVEE);
+            if (($currentTimeinSeconds - $dateTermineeInSeconds) > $mois and $sortie->getEtat() != $etatArchivee) {
+                $sortie->setEtat($etatArchivee);
 
-            } elseif (($currentTimeinSeconds - $dateTermineeInSeconds) > 0 and $sortie->getEtat() != $etatHistorisee) {
+            } elseif (($currentTimeinSeconds - $dateTermineeInSeconds) > 0 and $sortie->getEtat() != $etatArchivee) {
                 $etatPassee = $etatRepository->EtatByLibelle(Etat::PASSEE);
                 $sortie->setEtat($etatPassee);
 

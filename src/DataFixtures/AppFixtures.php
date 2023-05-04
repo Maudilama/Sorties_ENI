@@ -87,7 +87,7 @@ class AppFixtures extends Fixture
         }
 
                 //--------Etat----------
-                $etats = ['Créée', 'Ouverte', 'Clôturée', 'Activité en cours', 'Passée', 'Annulée', 'Historisée'];
+                $etats = ['Créée', 'Ouverte', 'Clôturée', 'Activité en cours', 'Passée', 'Annulée', 'Archivée'];
                 foreach ($etats as $libelle){
                     $etat = new Etat();
                     $etat->setLibelle($libelle);
@@ -178,12 +178,12 @@ class AppFixtures extends Fixture
                                        $organisateurS = $this->userRepository->findAll();
                                         $participant = $this->userRepository->findAll();
                                        $lieuS = $this->lieuRepository->findAll();
-                                       $etatS = $this->etatRepository->findAll();
+                                       $etatS = $this->etatRepository->EtatByLibelle(Etat::OUVERTE);
                                        //$user = $this->userRepository->findAll();
                                        for ($i = 1; $i<=50; $i++){
                                            $sortie = new Sortie();
                                            $sortie->setNom('Sortie '.$i);
-                                           $sortie->setDateLimiteInscription($faker->dateTimeBetween('-1 month', '+1month', 'Europe/Paris'));
+                                           $sortie->setDateLimiteInscription($faker->dateTimeBetween('-2 month', '+1month', 'Europe/Paris'));
                                            $sortie->setDateHeureDebut($faker->dateTimeBetween($sortie->getDateLimiteInscription(), '+1 month', 'Europe/Paris'));
                                            $sortie->setDuree($faker->dateTimeBetween($sortie->getDateHeureDebut(),$sortie->getDateHeureDebut()->add(new \DateInterval('P1D'))));
                                            $sortie->setNbInscriptionsMax($faker->numberBetween(3, 25));
@@ -191,7 +191,7 @@ class AppFixtures extends Fixture
                                            $sortie->setOrganisateur($faker->randomElement($organisateurS));
                                            $sortie->setCampus($sortie->getOrganisateur()->getCampus());
                                            $sortie->setLieu($faker->randomElement($lieuS));
-                                           $sortie->setEtat($faker->randomElement($etatS));
+                                           $sortie->setEtat($etatS);
                                            for ($j = 1; $j<= $faker->numberBetween(1, $sortie->getNbInscriptionsMax()); $j++){
                                            $sortie->addParticipant($faker->randomElement($participant));
                                            }
