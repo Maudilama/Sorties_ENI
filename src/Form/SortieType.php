@@ -20,9 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
 
-
-
-
 class SortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder,

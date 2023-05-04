@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Sortie;
 use App\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
