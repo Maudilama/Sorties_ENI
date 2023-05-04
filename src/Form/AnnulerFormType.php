@@ -12,7 +12,7 @@ class AnnulerFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('motifAnnulation', TextareaType::class, [
+        $builder->add('infosSortie', TextareaType::class, [
             'label' => 'Motif d\'annulation',
             'required' => true,
             'attr' => [

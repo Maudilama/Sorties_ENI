@@ -3,18 +3,19 @@
 {% block body %}
     <div class="container">
         <h1>{{ sortie.nom }}</h1>
-        <p>Date de la sortie : {{ sortie.dateSortie|date('d/m/Y H:i') }}</p>
+        <p>Date de la sortie : {{ sortie.dateHeureDebut |date('d/m/Y H:i') }}</p>
         <p>Campus : {{ sortie.campus.nom }}</p>
+        <p>Lieu : {{ sortie.lieu}}</p>
 
         {{ form_start(annulerForm) }}
 
-        {{ form_label(annulerForm.motif, 'Motif') }}
-        {{ form_widget(annulerForm.motif) }}
-        {{ form_errors(annulerForm.motif) }}
+        {{ form_label(annulerForm.infosSortie) }}
+        {{ form_widget(annulerForm.infosSortie) }}
+        {{ form_errors(annulerForm.infosSortie) }}
 
         <div class="mt-3">
-            {{ form_widget(annulerForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
-            {{ form_widget(annulerForm.delete, {'attr': {'class': 'btn btn-danger'}}) }}
+            <button type="submit" class="btn btn-primary">Annuler la sortie</button>
+            <a href="{{ path('main_home') }}" class="btn-cancel">Retour</a>
         </div>
 
         {{ form_end(annulerForm) }}

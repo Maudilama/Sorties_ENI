@@ -47,7 +47,7 @@
                                     {% endif %}</td>
                                 <td><a href="{{ path('profile_show', {'id': sortie.organisateur.id}) }}"> {{ sortie.organisateur.pseudo }}</a></td>
                                 <td> <a href="#"> Afficher</a> {% if app.user not in sortie.participants  %}
-                                        - <a href="{{ path('inscriptionSortie', {'id' : sortie.id}) }}">S'inscrire</a>
+                                        - <a href="{{ path('main_inscriptionSortie', {'id' : sortie.id}) }}">S'inscrire</a>
                                     {% endif %}
                                     {% if (app.user in sortie.participants) and (sortie.etat.libelle != 'Passée') and (sortie.etat.libelle != 'Activité en cours') %}
                                         - <a href="{{ path('main_sortie_desistement', {'id' : sortie.id}) }}">Se désister</a>
@@ -56,7 +56,7 @@
                                         - <a href="#">Modifier</a>
                                     {% endif %}
                                     {% if app.user == sortie.organisateur %}
-                                        - <a href="#">Annuler</a>
+                                        - <a href="{{ path('main_annulerSortie', {'id' : sortie.id}) }}">Annuler</a>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -68,7 +68,7 @@
                 {% endif %}
             </section>
             <div id="create-sortie-accueil" class="mt-4">
-                <a href="{{ path('createSortie') }}" class="btn btn-primary">Créer une sortie</a>
+                <a href="{{ path('main_createSortie') }}" class="btn btn-primary">Créer une sortie</a>
             </div>
         </div>
     </div>
