@@ -19,8 +19,8 @@ class Historiser
             $dureeSeconds = $sortie->getDuree()->getTimestamp();
             $dateTermineeInSeconds = $dateHeureDebutInSeconds + $dureeSeconds;
 
-            $dateLimiteInscriptionInSeconds = $sortie->getDateLimiteInscription()->getTimestamp();
 
+            $dateLimiteInscriptionInSeconds = $sortie->getDateLimiteInscription()->getTimestamp();
 
             $currentTimeinSeconds = time();
             $mois = 30 * 24 * 60 * 60;
