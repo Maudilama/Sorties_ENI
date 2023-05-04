@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
+
 class SortieController extends AbstractController
 {
     #[Route ('/createSortie/{id}inscriptionSortie', name: 'inscriptionSortie')]

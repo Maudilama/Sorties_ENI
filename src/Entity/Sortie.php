@@ -65,6 +65,7 @@ class Sortie
 
     public function __construct()
     {
+        $this->infosSortie =new InfosSortie();
         $this->participants = new ArrayCollection();
     }
 
@@ -137,6 +138,8 @@ class Sortie
 
         return $this;
     }
+
+
 
     public function getInfosSortie(): ?string
     {
