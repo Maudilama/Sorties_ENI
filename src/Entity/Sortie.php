@@ -65,7 +65,6 @@ class Sortie
 
     public function __construct()
     {
-        $this->infosSortie =new InfosSortie();
         $this->participants = new ArrayCollection();
     }
 

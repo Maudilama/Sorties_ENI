@@ -19,15 +19,17 @@ class SortieController extends AbstractController
     {
 
         $participant = $this->getUser();
-        if (!$participant) {
-            return $this->redirectToRoute('main_home');
-        }
+        assert($participant instanceof User);
+
 
         $sortie->addParticipant($participant);
         $entityManager->persist($participant);
         $entityManager->flush();
 
-        return $this->redirectToRoute('', ['id' => $sortie->getId()]);
+        $this->addFlash('succes', 'Vous vous êtes bien inscrit !');
+
+        return $this->redirectToRoute('main_home');
+
     }
 
 
