@@ -7,6 +7,14 @@ body {
     background: linear-gradient(white,darkslategrey);
     font-family: 'Crimson Text', serif;
 }
+/*styliser la photo de profil*/
+.user-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+}
 /* styliser l'entête */
 header {
     display: flex;
@@ -25,7 +33,86 @@ h1 {
     text-align: center;
     padding: 2px;
 }
+h2{
+    text-align: right;
+}
+/* Retrécir les champs de filtre */
+#filtre input[type="text"],
+#filtre input[type="date"],
+#filtre select {
+    width: 300px;
+}
 
+/* Aligner les cases à cocher à droite */
+#filtre label {
+    display: inline-block;
+    width: auto;
+    margin-right: 5px;
+}
+
+#filtre input[type="checkbox"] {
+    float: left;
+}
+
+/* Style pour le tableau de sortie */
+.sorties-list table {
+    border-collapse: collapse;
+    width: 100%;
+    overflow: auto;
+}
+
+.sorties-list table th,
+.sorties-list table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+
+
+}
+
+.sorties-list table th {
+    background-color: #f2f2f2;
+}
+
+.sorties-list table td:nth-child(1),
+.sorties-list table th:nth-child(1) {
+    width: 20%;
+}
+
+.sorties-list table td:nth-child(2),
+.sorties-list table th:nth-child(2) {
+    width: 20%;
+}
+
+.sorties-list table td:nth-child(3),
+.sorties-list table th:nth-child(3) {
+    width: 20%;
+}
+
+.sorties-list table td:nth-child(4),
+.sorties-list table th:nth-child(4) {
+    width: 15%;
+}
+
+.sorties-list table td:nth-child(5),
+.sorties-list table th:nth-child(5) {
+    width: 10%;
+}
+
+.sorties-list table td:nth-child(6),
+.sorties-list table th:nth-child(6) {
+    width: 5%;
+}
+
+.sorties-list table td:nth-child(7),
+.sorties-list table th:nth-child(7) {
+    width: 10%;
+}
+
+.sorties-list table td:nth-child(8),
+.sorties-list table th:nth-child(8) {
+    width: 20%;
+}
 
 
 /* Styliser les nav */
@@ -153,7 +240,10 @@ button[type="submit"]:hover {
 .btn-cancel:hover{
     background-color: darkolivegreen;
 }
+
 footer {
     padding: 100px;
     text-align: center;
+    color:  #FFFFFF;
 }
+

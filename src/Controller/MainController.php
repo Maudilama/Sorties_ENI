@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Entity\Sortie;
 use App\Entity\User;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use App\Repository\UserRepository;
+use App\Service\Archiver;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,8 +35,14 @@ class MainController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $sortiesAActualiser = $sortieRepository->findAll();
+        $actualiseEtat = new Archiver();
+        $actualiseEtat->actualiseEtatSorties($sortiesAActualiser, $etatRepository, $entityManager);
+
+
 
         $user = $this->getUser();
+        assert($user instanceof User);
 
         $defaultList = $sortieRepository->AllSortiesFromUserCampus($user);
         $filtreList = [];
@@ -57,12 +66,15 @@ class MainController extends AbstractController
         ->add('dateDebut', DateTimeType::class, [
             'html5'=> true,
             'widget'=>'single_text',
-            'required'=>false
+            'required'=>false,
+            'label'=> 'Sortie(s) entre le '
     ])
         ->add('dateFin', DateTimeType::class, [
         'html5'=> true,
         'widget'=>'single_text',
-        'required'=>false
+        'required'=>false,
+            'label'=>'Et le '
+
     ])
             ->add('sortiesOrganises', CheckboxType::class, [
                 'label'=>'Sorties dont je suis l\'organisateur',
@@ -90,22 +102,12 @@ class MainController extends AbstractController
 
         if ($formFilter->isSubmitted() && $formFilter->isValid()){
             $data = $formFilter->getData();
-            $filtreList = $sortieRepository->FiltreSorties($data, $user);
-            $formSubit = true;
-        }
-        //Fin du formulaire
+            $sortieList = $sortieRepository->filtreSorties($data, $user);
 
-        if ($formSubit && $filtreList && count($filtreList) > 0){
-            $sortieList = $filtreList;
-        } else if ($formSubit && count($filtreList) == 0){
-            $sortieList = null;
-        } else {
+        }else {
             $sortieList = $defaultList;
         }
-        dump($sortieList);
-        dump($defaultList);
-        //$sortie = $sortieRepository->findAll();
-        //dump($sortie);
+
 
         return $this->render('main/home.html.twig', [
             "sorties"=>$sortieList,
@@ -114,6 +116,28 @@ class MainController extends AbstractController
             'filterForm'=>$formFilter->createView()
 
         ]);
+    }
+
+
+    #[Route('/desistement/{id}', name: 'sortie_desistement')]
+    public function desistement(int $id,
+                                EntityManagerInterface $entityManager,
+                                Request $request,
+                                SortieRepository $sortieRepository,
+                                UserRepository $userRepository): Response
+    {
+            $sortie = $sortieRepository->find($id);
+
+            $user = $this->getUser();
+            assert($user instanceof User);
+
+            $sortie->removeParticipant($user);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('succes', 'Vous vous êtes désinscrit!');
+            return $this->redirectToRoute('app_home');
+
     }
 
 

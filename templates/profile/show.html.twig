@@ -6,6 +6,14 @@
     <div class="container">
         <h1>Profil de {{ user.pseudo }}</h1>
         <hr>
+        <div class="user-profile">
+            {% if user.photoFilename %}
+                <img src="{{ asset('img/' ~ user.photoFilename) }}" alt="Photo de profil de {{ user.pseudo }}" class="user-photo"/>
+            {% else %}
+                <img src="{{ asset('img/photos/64528f1c317a2.jpg') }}" alt="{{ user.prenom }} {{ user.nom }}" class="user-photo"/>
+            {% endif %}
+        </div>
+
         <div class="row">
             <div class="col-md-6">
                 <h4>Informations personnelles :</h4>

@@ -63,4 +63,14 @@ class EtatRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function EtatByLibelle(string $libelle): ?Etat
+    {
+        $qb = $this->createQueryBuilder('e');
+        $qb->andWhere('e.libelle = :libelle');
+        $qb->setParameter('libelle', $libelle);
+        $query = $qb->getQuery();
+        return $query->getOneOrNullResult();
+
+    }
 }

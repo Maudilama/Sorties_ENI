@@ -52,8 +52,8 @@ class ProfilType extends AbstractType
                     ]),
                 ],*/
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
-                'options' => ['attr' => ['class' => 'password-field']],
+                'invalid_message' => 'Les champs de mot de passe doivent correspondre.',
+                'options' => ['attr' => ['class' => 'champ de mot de passe']],
                 'required' => false,
                 'first_options' => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Répétez le mot de passe'],
@@ -66,13 +66,13 @@ class ProfilType extends AbstractType
                 'class' => Campus::class,
                 'choice_label' => 'nom'
             ])
-            ->add('image', FileType::class, [
-                'label' => 'choisir une image',
+            ->add('photo', FileType::class, [
+                'label' => 'choisir une photo',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '2024k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',

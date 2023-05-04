@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CreateController extends AbstractController
 {
-    #[Route ('/main', name: 'createSortie')]
+    #[Route ('/sortie/create', name: 'createSortie')]
     public function createSortie(Request $request,
                                  EntityManagerInterface
                                  $entityManager):Response
@@ -54,7 +54,7 @@ class CreateController extends AbstractController
         }
 
 
-        return $this->render('main/createSortie.html.twig', [
+        return $this->render('sortie/createSortie.html.twig', [
             "sortieForm" => $sortieForm->createView()
 
         ]);

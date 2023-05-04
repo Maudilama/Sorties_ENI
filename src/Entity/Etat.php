@@ -10,6 +10,15 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EtatRepository::class)]
 class Etat
 {
+    const CREE = 'Créée';
+    const ANNULEE = 'Annulée';
+    const ENCOURS = 'Activité en cours';
+    const CLOTUREE = 'Clôturée';
+    const OUVERTE = 'Ouverte';
+    const PASSEE = 'Passée';
+    const ARCHIVEE = 'Archivée';
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

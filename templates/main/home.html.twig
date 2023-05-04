@@ -38,18 +38,18 @@
                 <td>{% if app.user in sortie.participants %}
                 X
                 {% endif %}</td>
-                <td>{{ sortie.organisateur.pseudo }}</td>
-                <td> Afficher {% if not app.user in sortie.participants %}
-                        - S\'inscrire
+                <td><a href="{{ path('profile_show', {'id': sortie.organisateur.id}) }}"> {{ sortie.organisateur.pseudo }}</a></td>
+                <td> <a href="#"> Afficher</a> {% if not app.user in sortie.participants %}
+                        - <a href="#">S\'inscrire</a>
                         {% endif %}
-                    {% if app.user in sortie.participants %}
-                    - Se désister
+                    {% if (app.user in sortie.participants) and (sortie.etat.libelle != 'Passée') and (sortie.etat.libelle != 'Activité en cours') %}
+                    - <a href="{{ path('main_sortie_desistement', {'id' : sortie.id}) }}">Se désister</a>
                     {% endif %}
                     {% if app.user == sortie.organisateur %}
-                    - Modifier
+                    - <a href="#">Modifier</a>
                     {% endif %}
                     {% if app.user == sortie.organisateur %}
-                    - Annuler
+                    - <a href="#">Annuler</a>
                     {% endif %}
                     </td>
             </tr>
@@ -60,8 +60,8 @@
         {% endif %}
     </section>
 <div id="create-sortie-accueil">
-    // TODO: Rajouter le lien vers la création de sortie, les liens vers profil, afficher, annuler, modifier désister...
-    <button><a href="#">Créer une sortie</a> </button>
+
+    <a href="{{ path('createSortie') }}" class="btn-cancel">Créer une sortie</a>
 </div>
 </div>
 {% endblock %}

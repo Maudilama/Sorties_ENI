@@ -1,12 +1,18 @@
 {% extends 'base.html.twig' %}
 
-
 {% block title %}Modifier mon profil{% endblock %}
 {% block content %}
 
 {% endblock %}
 
 {% block body %}
+    <div class="user-profile">
+        {% if user.photoFilename %}
+            <img src="{{ asset('img/' ~ user.photoFilename) }}" alt="Photo de profil de {{ user.pseudo }}" class="user-photo"/>
+        {% else %}
+            <img src="{{ asset('img/photos/64524a9d4a612.jpg') }}" alt="{{ user.prenom }} {{ user.nom }}" class="user-photo"/>
+        {% endif %}
+    </div>
     <h1>Modifier mon profil</h1>
     <hr>
 
