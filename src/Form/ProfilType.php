@@ -66,13 +66,13 @@ class ProfilType extends AbstractType
                 'class' => Campus::class,
                 'choice_label' => 'nom'
             ])
-            ->add('image', FileType::class, [
-                'label' => 'choisir une image',
+            ->add('photo', FileType::class, [
+                'label' => 'choisir une photo',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '2024k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',

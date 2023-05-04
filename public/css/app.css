@@ -7,6 +7,14 @@ body {
     background: linear-gradient(white,darkslategrey);
     font-family: 'Crimson Text', serif;
 }
+/*styliser la photo de profil*/
+.user-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+}
 /* styliser l'entête */
 header {
     display: flex;
@@ -232,6 +240,7 @@ button[type="submit"]:hover {
 .btn-cancel:hover{
     background-color: darkolivegreen;
 }
+
 footer {
     padding: 100px;
     text-align: center;
