@@ -63,11 +63,13 @@ class ProfilController extends AbstractController
         // Récupérez la nouvelle valeur du champ de mot de passe
         $newPassword = $form->get('password')->getData();
 
-        //crypter le mot de passe
-        $newPasswordHashed = $userPasswordHasher->hashPassword($user, $newPassword);
-
-        // Mettre à jour le mot de passe dans la base de données
-        $user->setPassword($newPasswordHashed);
+        // Si le champ de mot de passe est vide, ne modifiez pas le mot de passe
+        if (!empty($newPassword)) {
+            //crypter le mot de passe
+            $newPasswordHashed = $userPasswordHasher->hashPassword($user, $newPassword);
+            // Mettre à jour le mot de passe dans la base de données
+            $user->setPassword($newPasswordHashed);
+        }
 
         $entityManager->persist($user);
         $entityManager->flush();
