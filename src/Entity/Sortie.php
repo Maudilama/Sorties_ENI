@@ -43,7 +43,7 @@ class Sortie
      * ORM\ManyToOne(inversedBy: 'sorties', targetEntity: "App\Entity\Lieu",cascade: {"persist"})]
      *@Assert\NotBlank
      */
-
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'sorties')]
     public ?Lieu $lieu = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]

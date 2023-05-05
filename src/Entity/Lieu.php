@@ -29,10 +29,10 @@ class Lieu
     #[ORM\Column(nullable: true)]
     public ?float $longitude = null;
 
-    #[ORM\ManyToOne(inversedBy: 'lieux')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'lieux')]
     public ?Ville $ville = null;
 
-    #[ORM\OneToMany(mappedBy: 'lieu', targetEntity: Sortie::class)]
+    #[ORM\OneToMany(mappedBy: 'lieu', targetEntity: Sortie::class, cascade: ['remove'])]
     #[Assert\Type(type: Sortie::class)]
     #[Assert\Valid]
 

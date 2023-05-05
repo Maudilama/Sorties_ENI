@@ -191,6 +191,9 @@ class SortieController extends AbstractController
 
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+            if ($sortieForm->get('lieu')->get('nom')->getData() == null &&$sortieForm->get('lieu')->get('rue')->getData() == null){
+            $sortieForm->get('lieu')->get('ville')->getData();
+
 
             if ($sortieForm->getClickedButton() && $sortieForm->getClickedButton()->getName() === 'publish') {
 
@@ -207,7 +210,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-
+            }
 
             return $this->redirectToRoute('main_home');
         }
@@ -230,20 +233,23 @@ class SortieController extends AbstractController
     {
 
         $sortie = $sortieRepository->find($id);
-        $etat=$etatRepository->EtatByLibelle('Annulée');
+        dump($sortie);
+        $etat=$etatRepository->EtatByLibelle(ETAT::ANNULEE);
+        $lieu = $sortie->getLieu();
+        $ville = $lieu->getVille();
 
-        $infosA = $sortie->getInfosSortie();
-        $sortie->setInfosSortie("");
+        //$infosA = $sortie->getInfosSortie();
+        //$sortie->setInfosSortie("");
         $annulerForm = $this->createForm(AnnulerFormType::class, $sortie);
         $annulerForm->handleRequest($request);
-        $infosB = $sortie->getInfosSortie();
+        //$infosB = $sortie->getInfosSortie();
 
 
         if ($annulerForm->isSubmitted() && $annulerForm->isValid()) {
 
             $sortie->setEtat($etat);
 
-            $sortie->setInfosSortie(nl2br("MOTIF D'ANNULATION: $infosB  \n $infosA"));
+            //$sortie->setInfosSortie(nl2br("MOTIF D'ANNULATION: $infosB  \n $infosA"));
 
             $entityManager->persist($sortie);
             $entityManager->flush();
@@ -253,6 +259,8 @@ class SortieController extends AbstractController
         }
         return $this->render('annulerSortie/annulerSortie.html.twig', [
             'sortie' => $sortie,
+            'lieu' => $lieu,
+            'ville' => $ville,
             'annulerForm' => $annulerForm->createView()
         ]);
     }

@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AnnulerFormType extends AbstractType
 {
@@ -18,6 +19,11 @@ class AnnulerFormType extends AbstractType
             'attr' => [
                 'rows' => 5,
                 'maxlength' => 500,
+            ],
+            'constraints' =>[
+                new NotBlank([
+                    'message' => 'Veuillez rentrer un motif d\'annulation !',
+                ]),
             ],
         ]);
     }
