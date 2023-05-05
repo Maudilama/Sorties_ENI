@@ -108,12 +108,14 @@ class SortieController extends AbstractController
         }else {
             $sortieList = $defaultList;
         }
+        $etatOuvert = $etatRepository->EtatByLibelle(Etat::OUVERTE);
 
 
         return $this->render('main/home.html.twig', [
             "sorties"=>$sortieList,
             'user' => $user,
             'today'=> $today,
+            'etatOuvert' => $etatOuvert,
             'filterForm'=>$formFilter->createView()
 
         ]);
@@ -150,13 +152,18 @@ class SortieController extends AbstractController
 
         $participant = $this->getUser();
         assert($participant instanceof User);
+        $nbParticipants = count($sortie->getParticipants());
 
+        if ($sortie->getEtat(Etat::OUVERTE) && $nbParticipants < $sortie->getNbInscriptionsMax()) {
+            $sortie->addParticipant($participant);
+            $entityManager->persist($participant);
+            $entityManager->flush();
 
-        $sortie->addParticipant($participant);
-        $entityManager->persist($participant);
-        $entityManager->flush();
+            $this->addFlash('succes', 'Vous vous êtes bien inscrit !');
+        } else {
+            $this->addFlash('error', 'Vous ne pouvez pas vous inscrire c\'est complet !');
+        }
 
-        $this->addFlash('succes', 'Vous vous êtes bien inscrit !');
 
         return $this->redirectToRoute('main_home');
 
