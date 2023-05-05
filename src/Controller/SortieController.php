@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Form\AnnulerFormType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
-use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use App\Service\Archiver;
@@ -17,13 +16,11 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use function Sodium\add;
 
 #[Route('/', name: 'main_')]
 class SortieController extends AbstractController
@@ -245,38 +242,6 @@ class SortieController extends AbstractController
             'annulerForm' => $annulerForm->createView()
         ]);
     }
-
-    /*if($sortie->getEtat()->getLibelle() === 'Ouverte' || $sortie->getEtat()->getLibelle() === 'Clôturée'){
-
-        $infosSortie = $sortie->getInfosSortie();
-
-         $AnnulerSortieForm = $this->createForm(AnnulerFormType::class, $sortie);
-
-
-         $AnnulerSortieForm ->handleRequest($request);
-
-         if ($AnnulerSortieForm ->isSubmitted() && $AnnulerSortieForm->isValid())
-         {
-
-                $etatAnnulee = $etatRepository->findBy(['libelle' => 'Annulée']);
-                 $sortie->setInfosSortie($infosSortie .' - Motif d\'Annulation : '.$sortie->getInfosSortie());
-                 $sortie->setEtat($etatAnnulee[0]);
-                 $entityManager->persist($sortie);
-                 $entityManager->flush();
-
-                 $this->addFlash('success', 'La sortie a été annulée avec succès !');
-
-
-                 return $this->redirectToRoute('main_home');
-             }
-
-       }
-
-
-         return $this->render('annulerSortie/annulerSortie.html.twig', [
-             'annulationSortieForm' => $AnnulerSortieForm->createView(),
-             'sortie' => $sortie
-         ]);*/
 
 
 
