@@ -122,7 +122,7 @@ class SortieController extends AbstractController
     }
 
 
-    #[Route('/desistement/{id}', name: 'sortie_desistement')]
+    #[Route('/sortie/desistement/{id}', name: 'sortie_desistement')]
     public function desistement(int $id,
                                 EntityManagerInterface $entityManager,
                                 Request $request,
@@ -144,7 +144,7 @@ class SortieController extends AbstractController
     }
 
 
-    #[Route ('/createSortie/{id}inscriptionSortie', name: 'inscriptionSortie')]
+    #[Route ('/sortie/createSortie/{id}inscriptionSortie', name: 'inscriptionSortie')]
     public function inscriptionSortie(Sortie $sortie,
                                       Request $request,
                                       EntityManagerInterface $entityManager): Response
@@ -223,7 +223,7 @@ class SortieController extends AbstractController
     }
 
 
-    #[Route ('/annulerSortie{id}', name: 'annulerSortie')]
+    #[Route ('/sortie/annulerSortie{id}', name: 'annulerSortie')]
     public function annulerSortie(int $id,
                                   SortieRepository $sortieRepository,
                                   EtatRepository $etatRepository,
