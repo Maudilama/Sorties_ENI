@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Entity\User;
 use App\Form\AnnulerFormType;
@@ -163,12 +164,18 @@ class SortieController extends AbstractController
 
     #[Route ('/sortie', name: 'createSortie')]
     public function createSortie(Request $request,
-                                 EntityManagerInterface
-                                         $entityManager):Response
+                                 EntityManagerInterface $entityManager,
+                                UserRepository $userRepository,
+                                EtatRepository $etatRepository):Response
 
     {
 
         $sortie = new Sortie();
+        $organisateur = $this->getUser();
+        assert($organisateur instanceof User);
+        $sortie->setOrganisateur($organisateur);
+        $etat = $etatRepository->EtatByLibelle(Etat::OUVERTE);
+        $sortie->setEtat($etat);
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
 

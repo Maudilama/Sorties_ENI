@@ -36,23 +36,23 @@ class LieuType extends AbstractType
                 'class' => Lieu::class,
                 'label' => 'Lieu',
                 'required' => true,
-                'attr' => [
+                /*'attr' => [
                     'data-prototype' => $this->getLieuPrototype(),
-                ],
+                ],*/
 
             ])
             ->add('rue', TextType::class, [
                 'label' => 'Rue :',
-                'scale' => 6,
+                //'scale' => 6,
                 'required' => false,
                 'attr' => [
-                    'readonly' => true, // make this field read-only
+                    //'readonly' => true, // make this field read-only
                 ],
             ])
             ->add('latitude', CustomFloatType::class, [
                 'label' => 'Latitude :',
                 'required' => false,
-                'scale' => 6,
+               // 'scale' => 6,
                 'attr' => [
                     'readonly' => true, // make this field read-only
                 ],
@@ -60,7 +60,7 @@ class LieuType extends AbstractType
             ])
             ->add('longitude', CustomFloatType::class, [
                 'label' => 'Longitude :',
-                'scale' => 6,
+               // 'scale' => 6,
                 'required' => false,
                 'attr' => [
                     'readonly' => true, // make this field read-only
@@ -69,7 +69,7 @@ class LieuType extends AbstractType
             ->add('ville', VilleType::class, [
                 //'class'=>Ville::class,
                 'label' => false,
-                'scale' => 6,
+               // 'scale' => 6,
                 'required' => false,
                 'attr' => [
                     'readonly' => true, // make this field read-only
